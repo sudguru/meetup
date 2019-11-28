@@ -1,7 +1,13 @@
 <script>
 	import Header from './UI/Header.svelte';
-	import Item from './Meetups/Item.svelte';
-	const meetups = [
+	import MeetupItem from './Meetups/MeetupItem.svelte';
+	let title = '';
+	let subtitle = '';
+	let contactEmail = '';
+	let imageUrl = '';
+	let description = '';
+	let address = '';
+	let meetups = [
 		{
 			id: 'm1',
 			title: 'Coding BootCamp',
@@ -21,12 +27,63 @@
 			contactEmail: 'sudeep@gmail.com'
 		},
 		
-	]
+	];
+	
+	function addMeetup() {
+		const Meetup = {
+			id : Math.random().toString(),
+			title,
+			subtitle,
+			address,
+			description,
+			contactEmail,
+			imageUrl
+		}
+		meetups = [Meetup, ...meetups];
+	}
 </script>
 
 
 <Header />
+<div class="container">
+	<div class="row justify-content-md-center">
+		<div class="col-md-6">
+			<form class="mt-3" on:submit|preventDefault="{addMeetup}">
+				
 
-{#each meetups as meetup}
-	<Item />
-{/each}
+				<div class="form-group">
+					<label for="subtitle">Subtitle</label>
+					<input type="text" class="form-control" bind:value={subtitle} id="subtitle">
+				</div>
+
+				<div class="form-group">
+					<label for="description">Description</label>
+					<input type="text" class="form-control" bind:value="{description}" id="description">
+				</div>
+
+				<div class="form-group">
+					<label for="address">Address</label>
+					<input type="text" class="form-control" bind:value="{address}" id="address">
+				</div>
+
+				<div class="form-group">
+					<label for="imageUrl">Image Url</label>
+					<input type="text" class="form-control" bind:value="{imageUrl}" id="imageUrl">
+				</div>
+
+				<div class="form-group">
+					<label for="contactEmail">Email address</label>
+					<input type="email" class="form-control" bind:value="{contactEmail}" id="contactEmail">
+				</div>
+				<button type="submit" class="btn btn-primary">Save Meetup</button>
+			</form>
+		</div>
+	</div>
+	{#each meetups as meetup}
+		<div class="row justify-content-md-center">
+			<div class="col-md-6">
+				<MeetupItem {meetup} />
+			</div>
+		</div>
+	{/each}
+</div>
