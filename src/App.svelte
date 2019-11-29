@@ -1,6 +1,8 @@
 <script>
 	import Header from './UI/Header.svelte';
 	import MeetupItem from './Meetups/MeetupItem.svelte';
+	import TextInput from './UI/TextInput.svelte';
+
 	let title = '';
 	let subtitle = '';
 	let contactEmail = '';
@@ -41,6 +43,57 @@
 		}
 		meetups = [Meetup, ...meetups];
 	}
+	const titleCtrl = {
+		label: 'Title',
+		type: 'text',
+		id: 'title',
+		rows: 0,
+		helpText: 'Enter title Here',
+		required: 'required',
+		value: title
+	}
+	const subtitleCtrl = {
+		label: 'Subtitle',
+		type: 'text',
+		id: 'subtitle',
+		rows: 0,
+		helpText: 'Enter subtitle Here',
+		required: 'required'
+	}
+	const descriptionCtrl = {
+		label: 'Description',
+		type: 'textarea',
+		id: 'desription',
+		rows: 0,
+		helpText: 'Enter Description Here',
+		required: 'required'
+	}
+
+	const addressCtrl = {
+		label: 'Address',
+		type: 'textarea',
+		id: 'desription',
+		rows: 0,
+		helpText: 'Enter Address Here',
+		required: 'required'
+	}
+	const imageUrlCtrl = {
+		label: 'Image Url',
+		type: 'text',
+		id: 'imageUrl',
+		rows: 0,
+		helpText: 'Enter Image URL Here',
+		required: 'required'
+	}
+
+	const contactEmailCtrl = {
+		label: 'Contact Email',
+		type: 'email',
+		id: 'contactEmail',
+		rows: 0,
+		helpText: 'Enter contact Email Here',
+		required: 'required'
+	}
 </script>
 
 
@@ -50,27 +103,12 @@
 		<div class="col-md-6">
 			<form class="mt-3" on:submit|preventDefault="{addMeetup}">
 				
-
-				<div class="form-group">
-					<label for="subtitle">Subtitle</label>
-					<input type="text" class="form-control" bind:value={subtitle} id="subtitle">
-				</div>
-
-				<div class="form-group">
-					<label for="description">Description</label>
-					<input type="text" class="form-control" bind:value="{description}" id="description">
-				</div>
-
-				<div class="form-group">
-					<label for="address">Address</label>
-					<input type="text" class="form-control" bind:value="{address}" id="address">
-				</div>
-
-				<div class="form-group">
-					<label for="imageUrl">Image Url</label>
-					<input type="text" class="form-control" bind:value="{imageUrl}" id="imageUrl">
-				</div>
-
+				<TextInput value="{title}" control="{titleCtrl}" on:input={event => title = event.target.value} />
+				<TextInput value="{subtitle}" control="{subtitleCtrl}" on:input={event => subtitle = event.target.value} />
+				<TextInput value="{description}" control="{descriptionCtrl}" on:input={event => description = event.target.value} />
+				<TextInput value="{address}" control="{addressCtrl}" on:input={event => address = event.target.value} />
+				<TextInput value="{imageUrl}" control="{imageUrlCtrl}" on:input={event => imageUrl = event.target.value} />
+				<TextInput value="{contactEmail}" control="{contactEmailCtrl}" on:input={event => contactEmail = event.target.value} />
 				<div class="form-group">
 					<label for="contactEmail">Email address</label>
 					<input type="email" class="form-control" bind:value="{contactEmail}" id="contactEmail">
